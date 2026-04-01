@@ -1,0 +1,34 @@
+name: store-services-app
+
+services:
+  storeservices.api.author:
+    container_name: storeservices.api.author
+    image: ${DOCKER_REGISTRY-}storeservicesapiauthor
+    build:
+      context: ..
+      dockerfile: src/StoreServices.Api.Author/Dockerfile
+
+  storeservices.api.book:
+    container_name: storeservices.api.book
+    image: ${DOCKER_REGISTRY-}storeservicesapibook
+    build:
+      context: ..
+      dockerfile: src/StoreServices.Api.Book/Dockerfile
+
+  storeservices.api.shoppingcart:
+    container_name: storeservices.api.shoppingcart
+    image: ${DOCKER_REGISTRY-}storeservicesapishoppingcart
+    build:
+      context: ..
+      dockerfile: src/StoreServices.Api.ShoppingCart/Dockerfile
+
+  storeservices.api.gateway:
+    container_name: storeservices.api.gateway
+    image: ${DOCKER_REGISTRY-}storeservicesapigateway
+    build:
+      context: ..
+      dockerfile: src/StoreServices.Api.Gateway/Dockerfile
+
+networks:
+  default:
+    name: microservicenet

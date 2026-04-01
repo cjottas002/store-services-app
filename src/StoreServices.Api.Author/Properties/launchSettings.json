@@ -1,0 +1,14 @@
+{
+  "$schema": "http://json.schemastore.org/launchsettings.json",
+  "profiles": {
+    "StoreServices.Api.Author": {
+      "commandName": "Project",
+      "launchBrowser": false,
+      "launchUrl": "api/Author",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "http://localhost:6104"
+    }
+  }
+}

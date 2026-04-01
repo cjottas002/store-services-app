@@ -1,0 +1,78 @@
+services:
+  storeservices.api.author:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DatabaseConnection=Host=postgres-store-services-app;Database=storeauthorbooks;Port=5432;Username=postgres;Password=DevPass123!;
+    ports:
+      - "6104:8080"
+    depends_on:
+      - postgres-store-services-app
+
+  storeservices.api.book:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DatabaseConnection=Server=sqlserver-store-services-app,1433;Initial Catalog=storebooks;User Id=sa;Password=DevPass123!;TrustServerCertificate=true;
+    ports:
+      - "6105:8080"
+    depends_on:
+      - sqlserver-store-services-app
+
+  storeservices.api.shoppingcart:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DatabaseConnection=Server=mariadb-store-services-app;Port=3306;Database=shoppingcart;User=root;Password=DevPass123!;
+      - Services__Books=http://storeservices.api.book:8080
+    ports:
+      - "6106:8080"
+    depends_on:
+      - mariadb-store-services-app
+      - storeservices.api.book
+
+  storeservices.api.gateway:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "6107:8080"
+    depends_on:
+      - storeservices.api.author
+      - storeservices.api.book
+      - storeservices.api.shoppingcart
+
+  postgres-store-services-app:
+    container_name: postgres-store-services-app
+    image: postgres:17.5
+    environment:
+      POSTGRES_DB: storeauthorbooks
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: DevPass123!
+    ports:
+      - "5433:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  sqlserver-store-services-app:
+    container_name: sqlserver-store-services-app
+    image: mcr.microsoft.com/azure-sql-edge:latest
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_SA_PASSWORD: DevPass123!
+    ports:
+      - "1433:1433"
+    volumes:
+      - sqldata:/var/opt/mssql
+
+  mariadb-store-services-app:
+    container_name: mariadb-store-services-app
+    image: mariadb:11
+    environment:
+      MARIADB_ROOT_PASSWORD: DevPass123!
+      MARIADB_DATABASE: shoppingcart
+    ports:
+      - "3307:3306"
+    volumes:
+      - mariadata:/var/lib/mysql
+
+volumes:
+  pgdata:
+  sqldata:
+  mariadata:
