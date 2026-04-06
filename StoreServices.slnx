@@ -1,0 +1,18 @@
+<Solution>
+  <Configurations>
+    <Platform Name="Any CPU" />
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Folder Name="/src/">
+    <Project Path="src/StoreServices.Api.Author/StoreServices.Api.Author.csproj" />
+    <Project Path="src/StoreServices.Api.Book/StoreServices.Api.Book.csproj" />
+    <Project Path="src/StoreServices.Api.Gateway/StoreServices.Api.Gateway.csproj" />
+    <Project Path="src/StoreServices.Api.ShoppingCart/StoreServices.Api.ShoppingCart.csproj" />
+  </Folder>
+  <Folder Name="/test/">
+    <Project Path="test/StoreServices.Api.Author.Tests/StoreServices.Api.Author.Tests.csproj" />
+    <Project Path="test/StoreServices.Api.Book.Tests/StoreServices.Api.Book.Tests.csproj" />
+    <Project Path="test/StoreServices.Api.ShoppingCart.Tests/StoreServices.Api.ShoppingCart.Tests.csproj" />
+  </Folder>
+</Solution>
